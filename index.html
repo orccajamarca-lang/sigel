@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIGEL - Sistema de Gestión Electoral</title>
+<meta name="theme-color" content="#1B3A5C"><link rel="manifest" href="manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head><body>
+<header id="nav"><button class="burger" id="burger">☰</button><strong>SIGEL</strong><span>Sistema de Gestión Electoral</span></header>
+<nav id="side"><a data-s="dash" class="active">📊 Panel</a><a data-s="form" id="navNew">➕ Nuevo registro</a><a data-s="rep">📄 Reporte</a></nav>
+<main>
+<section id="dash" class="sec show">
+ <button class="btn pri" id="btnNew">+ Nuevo Registro</button>
+ <div class="cards"><div class="card">📊 Total Procesos<b id="cT">0</b></div><div class="card">✅ Finalizados<b id="cF">0</b></div><div class="card">⏳ Pendientes<b id="cP">0</b></div><div class="card">🔵 En curso<b id="cE">0</b></div></div>
+ <div class="filters"><input id="fId" placeholder="Buscar por ID"><button class="btn" id="bId">Buscar</button>
+ <input type="date" id="fFrom"><input type="date" id="fTo"><button class="btn" id="bRange">Filtrar</button>
+ <select id="fMes"></select><input type="number" id="fAnio" style="width:90px"><button class="btn" id="bMes">Filtrar mes</button>
+ <button class="btn sec2" id="bClear">Ver todos</button></div>
+ <div class="tw"><table><thead><tr><th>ID</th><th>Institución</th><th>Nombre elección</th><th>Fecha</th><th>Estado</th><th>Participación</th><th>Acciones</th></tr></thead><tbody id="tbody"></tbody></table></div>
+</section>
+<section id="form" class="sec">
+ <h2 id="formTitle">Nuevo Registro</h2><br>
+ <div id="formBox">
+ <fieldset><legend>📋 Datos Generales</legend><div class="grid">
+  <div><label>ID</label><input id="id" readonly></div>
+  <div><label>Institución solicitante</label><input id="institucion" required></div>
+  <div style="grid-column:1/-1"><label>Nombre de la elección</label><textarea id="eleccion" rows="3" required></textarea></div>
+  <div><label>Fecha de la elección</label><input type="date" id="fecha" required></div>
+  <div><label>N° de listas (1-8)</label><input type="number" id="nListas" min="1" max="8" value="1" required></div>
+  <div><label>Hora inicio</label><input type="time" id="horaInicio" required></div>
+  <div><label>Hora fin</label><input type="time" id="horaFin" required></div></div></fieldset>
+ <fieldset><legend>📊 Padrón Electoral</legend><div class="grid"><div><label>Mujeres en el padrón</label><input type="number" min="0" id="mPadron" class="calc" required></div><div><label>Hombres en el padrón</label><input type="number" min="0" id="hPadron" class="calc" required></div><div><label>Total padrón</label><input id="tPadron" readonly></div></div></fieldset>
+ <fieldset><legend>🗳️ Votación</legend><div class="grid"><div><label>Mujeres que votaron</label><input type="number" min="0" id="mVotaron" class="calc" required></div><div><label>Hombres que votaron</label><input type="number" min="0" id="hVotaron" class="calc" required></div><div><label>Total votaron</label><input id="tVotaron" readonly></div></div></fieldset>
+ <fieldset><legend>👥 Candidatos</legend><div class="grid"><div><label>Mujeres candidatas</label><input type="number" min="0" id="mCandidatas" class="calc" required></div><div><label>Hombres candidatos</label><input type="number" min="0" id="hCandidatos" class="calc" required></div><div><label>Total candidatos</label><input id="tCandidatos" readonly></div></div></fieldset>
+ <fieldset><legend>🏆 Elegidos</legend><div class="grid"><div><label>Mujeres elegidas</label><input type="number" min="0" id="mElegidas" class="calc" required></div><div><label>Hombres elegidos</label><input type="number" min="0" id="hElegidos" class="calc" required></div><div><label>Total elegidos</label><input id="tElegidos" readonly></div></div></fieldset>
+ <fieldset><legend>📝 Resultados por Lista</legend><div class="grid" id="listas"></div><div class="grid" style="margin-top:12px"><div><label>Votos en blanco</label><input type="number" min="0" id="blancos" class="calc" required></div><div><label>Votos nulos</label><input type="number" min="0" id="nulos" class="calc" required></div><div><label>Total votos</label><input id="tVotos" readonly></div></div><div id="warn" class="alert hidden"></div></fieldset>
+ <fieldset><legend>📎 Archivo adjunto (opcional)</legend><input type="file" id="archivo" accept="image/*,.pdf"><img id="prev" class="hidden" style="max-width:200px;margin-top:8px"><p id="fileInfo"></p></fieldset>
+ <button class="btn ok" id="bSave">Guardar</button> <button class="btn sec2" id="bCancel">Cancelar</button></div>
+</section>
+<section id="rep" class="sec">
+ <h2>Reporte</h2><div class="filters"><select id="repSel"></select><button class="btn" id="bRep">Generar Reporte</button><button class="btn ok hidden" id="bXls">Exportar a Excel</button></div>
+ <div id="repOut"></div>
+</section>
+</main>
+<div id="toast"></div><div id="spin" class="hidden"><i></i></div><div id="modalHost"></div>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
+<script src="js/app.js"></script>
+</body></html>
